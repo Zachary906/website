@@ -6,6 +6,12 @@ BINARY_NAME=zach-sikora-daycare
 MIGRATIONS_DIR=internal/database/migrations
 
 dev:
+	@mkdir -p tmp
+	@if [ ! -f .envrc ] && [ -f .envrc.example ]; then \
+		echo "Creating .envrc from .envrc.example..."; \
+		cp .envrc.example .envrc; \
+		echo "Run 'direnv allow' to load environment variables"; \
+	fi
 	@if [ -f tmp/air-combined.log ]; then \
 		mv tmp/air-combined.log tmp/air-combined-$$(date +%Y%m%d-%H%M%S).log; \
 	fi
