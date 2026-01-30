@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@source "../../templates/**/*.templ";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Brand colors from logo */
+  --brand-green: #6BBF4E;
+  --brand-green-dark: #5aa83f;
+  --brand-green-light: #8ed176;
+  --brand-dark: #1a1a1a;
+  --brand-gold: #F5D76E;
+  --brand-gold-dark: #e6c549;
+
+  /* Semantic colors */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.65 0.18 135);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.15 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.85 0.12 85);
+  --accent-foreground: oklch(0.15 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --primary: oklch(0.7 0.18 135);
+  --primary-foreground: oklch(0.15 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.85 0.12 85);
+  --accent-foreground: oklch(0.15 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+
+  /* Brand colors as theme tokens */
+  --color-brand-green: #6BBF4E;
+  --color-brand-green-dark: #5aa83f;
+  --color-brand-green-light: #8ed176;
+  --color-brand-dark: #1a1a1a;
+  --color-brand-gold: #F5D76E;
+  --color-brand-gold-dark: #e6c549;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

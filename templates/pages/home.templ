@@ -1,0 +1,225 @@
+package pages
+
+import (
+	"zach-sikora-daycare/internal/meta"
+	"zach-sikora-daycare/templates/layouts"
+)
+
+templ Home() {
+	@layouts.Base(meta.New("Home", "Quality childcare services in Cornell, WI. Infant care through preschool program, open 5:30am-6:00pm Monday-Friday. Play, Learn and Grow... Together!")) {
+		@HeroSection()
+		@AboutSection()
+		@ServicesSection()
+		@TestimonialsSection()
+		@ContactSection()
+	}
+}
+
+templ HeroSection() {
+	<section class="bg-gradient-to-br from-brand-dark via-gray-900 to-brand-dark py-16 md:py-24">
+		<div class="max-w-6xl mx-auto px-4 text-center">
+			<img src="/static/images/logo.webp" alt="Kids First Childcare" class="mx-auto h-48 md:h-64 rounded-2xl shadow-2xl mb-8"/>
+			<h1 class="text-3xl md:text-5xl font-bold text-white mb-4">
+				<span class="text-brand-green">Kids First</span> Childcare
+			</h1>
+			<p class="text-xl md:text-2xl text-gray-300 mb-2">Providing childcare for our small community</p>
+			<p class="text-lg md:text-xl text-brand-gold italic mb-8">"Play, Learn and Grow... Together!"</p>
+			<a href="#contact" class="inline-block bg-brand-green text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-green-dark transition-all transform hover:scale-105 shadow-lg">
+				Contact Us
+			</a>
+		</div>
+	</section>
+}
+
+templ AboutSection() {
+	<section id="about" class="py-16 bg-white">
+		<div class="max-w-6xl mx-auto px-4">
+			<h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+				<span class="text-brand-green">About</span> Us
+			</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+				<div>
+					<p class="text-lg text-gray-700 mb-6 leading-relaxed">
+						Welcome to Kids First Childcare, proudly serving the Cornell, Wisconsin community. We believe every child deserves a nurturing environment where they can play, learn, and grow.
+					</p>
+					<p class="text-lg text-gray-700 mb-6 leading-relaxed">
+						Our experienced and caring staff is dedicated to providing a safe, stimulating, and loving atmosphere for children from infancy through school age.
+					</p>
+					<div class="bg-gray-50 p-6 rounded-lg border-l-4 border-brand-green">
+						<h3 class="font-semibold text-brand-dark mb-4">Meet Our Team</h3>
+						<div class="space-y-3">
+							<p class="text-gray-700"><strong class="text-brand-green">Tammy</strong> - Owner</p>
+							<p class="text-gray-700"><strong class="text-brand-green">Lindsey</strong> - Staff</p>
+						</div>
+					</div>
+				</div>
+				<div class="bg-gradient-to-br from-brand-green/10 to-brand-gold/10 p-8 rounded-2xl">
+					<div class="text-center">
+						<div class="text-6xl mb-4">🌟</div>
+						<h3 class="text-2xl font-bold text-brand-dark mb-4">Our Promise</h3>
+						<p class="text-gray-700 italic text-lg">"Play, Learn and Grow... Together!"</p>
+						<div class="mt-6 flex justify-center gap-4 flex-wrap">
+							<span class="bg-brand-green/20 text-brand-green-dark px-4 py-2 rounded-full text-sm font-medium">Safe Environment</span>
+							<span class="bg-brand-gold/30 text-brand-gold-dark px-4 py-2 rounded-full text-sm font-medium">Nurturing Care</span>
+							<span class="bg-brand-green/20 text-brand-green-dark px-4 py-2 rounded-full text-sm font-medium">Educational Activities</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+}
+
+templ ServicesSection() {
+	<section id="services" class="py-16 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-4">
+			<h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+				Our <span class="text-brand-green">Services</span>
+			</h2>
+			<p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+				We offer comprehensive childcare programs tailored to each age group's developmental needs.
+			</p>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				@ServiceCard(
+					"👶",
+					"Infant Care",
+					"Specialized care for infants starting from 6 weeks old. Our gentle, nurturing approach focuses on safety, comfort, and early developmental milestones.",
+					[]string{"Safe sleep practices", "Individualized feeding schedules", "Tummy time & sensory activities", "Daily communication with parents"},
+				)
+				@ServiceCard(
+					"🎨",
+					"Preschool Program",
+					"Engaging educational activities designed for children through school age up to 11 years old. We focus on learning through play and social development.",
+					[]string{"Age-appropriate curriculum", "Arts & crafts projects", "Social skill building", "Outdoor play & physical activity"},
+				)
+			</div>
+		</div>
+	</section>
+}
+
+templ ServiceCard(emoji, title, description string, features []string) {
+	<div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+		<div class="text-5xl mb-4">{ emoji }</div>
+		<h3 class="text-2xl font-bold text-brand-dark mb-4">{ title }</h3>
+		<p class="text-gray-600 mb-6 leading-relaxed">{ description }</p>
+		<ul class="space-y-2">
+			for _, feature := range features {
+				<li class="flex items-center gap-2 text-gray-700">
+					<svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+						<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+					</svg>
+					{ feature }
+				</li>
+			}
+		</ul>
+	</div>
+}
+
+templ TestimonialsSection() {
+	<section id="testimonials" class="py-16 bg-brand-dark">
+		<div class="max-w-6xl mx-auto px-4">
+			<h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
+				What <span class="text-brand-green">Parents</span> Say
+			</h2>
+			<p class="text-center text-gray-400 mb-12">Real reviews from our community</p>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				@TestimonialCard(
+					"Mitt loves going there. Tammy and Lindsey are fantastic!!",
+					"Lori Oemig",
+				)
+				@TestimonialCard(
+					"Tammy is a great person. I trust her with my kid. Great program as well.",
+					"Deenna Ruhl",
+				)
+			</div>
+		</div>
+	</section>
+}
+
+templ TestimonialCard(quote, author string) {
+	<div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+		<svg class="w-10 h-10 text-brand-gold mb-4" fill="currentColor" viewBox="0 0 24 24">
+			<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+		</svg>
+		<p class="text-white text-lg mb-6 italic leading-relaxed">{ quote }</p>
+		<div class="flex items-center gap-2">
+			<div class="w-10 h-10 bg-brand-green rounded-full flex items-center justify-center text-white font-bold">
+				{ string(author[0]) }
+			</div>
+			<span class="text-brand-green font-semibold">{ author }</span>
+		</div>
+	</div>
+}
+
+templ ContactSection() {
+	<section id="contact" class="py-16 bg-white">
+		<div class="max-w-6xl mx-auto px-4">
+			<h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+				<span class="text-brand-green">Contact</span> Us
+			</h2>
+			<p class="text-center text-gray-600 mb-12">We'd love to hear from you!</p>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+				@ContactCard(
+					"📞",
+					"Phone",
+					"(715) 239-2004",
+					"tel:7152392004",
+				)
+				@ContactCard(
+					"✉️",
+					"Email",
+					"kidsfirstchildcare@yahoo.com",
+					"mailto:kidsfirstchildcare@yahoo.com",
+				)
+				@ContactCard(
+					"📍",
+					"Address",
+					"400 Woodside Drive, Cornell, WI 54732",
+					"https://maps.google.com/?q=400+Woodside+Drive+Cornell+WI+54732",
+				)
+				@ContactCard(
+					"🕐",
+					"Hours",
+					"5:30am - 6:00pm, Mon-Fri",
+					"",
+				)
+			</div>
+			<div class="mt-12 text-center">
+				<a href="https://www.facebook.com/KidsFirstChildcareLLC" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg">
+					<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+					</svg>
+					Follow Us on Facebook
+				</a>
+			</div>
+		</div>
+	</section>
+}
+
+templ ContactCard(emoji, title, info, link string) {
+	<div class="bg-gray-50 p-6 rounded-xl text-center hover:shadow-lg transition-shadow">
+		<div class="text-4xl mb-4">{ emoji }</div>
+		<h3 class="font-semibold text-brand-dark mb-2">{ title }</h3>
+		if link != "" {
+			<a href={ templ.SafeURL(link) } target={ targetForLink(link) } rel={ relForLink(link) } class="text-brand-green hover:text-brand-green-dark transition-colors break-words">
+				{ info }
+			</a>
+		} else {
+			<p class="text-gray-600">{ info }</p>
+		}
+	</div>
+}
+
+func targetForLink(link string) string {
+	if len(link) > 4 && link[:4] == "http" {
+		return "_blank"
+	}
+	return ""
+}
+
+func relForLink(link string) string {
+	if len(link) > 4 && link[:4] == "http" {
+		return "noopener noreferrer"
+	}
+	return ""
+}
