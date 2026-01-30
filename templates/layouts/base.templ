@@ -1,0 +1,130 @@
+package layouts
+
+import "zach-sikora-daycare/internal/meta"
+
+templ Base(m meta.PageMeta) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			@MetaTags(m)
+			<link rel="icon" type="image/x-icon" href="/static/images/favicon.ico"/>
+			<link rel="icon" type="image/webp" href="/static/images/favicon.webp"/>
+			<link rel="stylesheet" href="/static/css/output.css"/>
+			<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+		</head>
+		<body class="min-h-screen bg-white text-gray-800">
+			@Header()
+			<main>
+				{ children... }
+			</main>
+			@Footer()
+			@MobileMenuScript()
+		</body>
+	</html>
+}
+
+templ Header() {
+	<header class="sticky top-0 z-50 bg-brand-dark shadow-lg">
+		<nav class="max-w-6xl mx-auto px-4 py-3">
+			<div class="flex items-center justify-between">
+				<a href="/" class="flex items-center gap-3">
+					<img src="/static/images/logo-small.webp" alt="Kids First Childcare" class="h-12 w-12 rounded-lg"/>
+					<span class="text-brand-green font-bold text-xl hidden sm:block">Kids First Childcare</span>
+				</a>
+				<div class="hidden md:flex items-center gap-6">
+					<a href="#about" class="text-white hover:text-brand-green transition-colors">About</a>
+					<a href="#services" class="text-white hover:text-brand-green transition-colors">Services</a>
+					<a href="#testimonials" class="text-white hover:text-brand-green transition-colors">Testimonials</a>
+					<a href="#contact" class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-brand-green-dark transition-colors">Contact Us</a>
+				</div>
+				<button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Toggle menu">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</button>
+			</div>
+			<div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-700 pt-4">
+				<div class="flex flex-col gap-4">
+					<a href="#about" class="text-white hover:text-brand-green transition-colors">About</a>
+					<a href="#services" class="text-white hover:text-brand-green transition-colors">Services</a>
+					<a href="#testimonials" class="text-white hover:text-brand-green transition-colors">Testimonials</a>
+					<a href="#contact" class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-brand-green-dark transition-colors text-center">Contact Us</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+}
+
+templ Footer() {
+	<footer class="bg-brand-dark text-white py-12">
+		<div class="max-w-6xl mx-auto px-4">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div>
+					<div class="flex items-center gap-3 mb-4">
+						<img src="/static/images/logo-small.webp" alt="Kids First Childcare" class="h-10 w-10 rounded-lg"/>
+						<span class="text-brand-green font-bold text-lg">Kids First Childcare</span>
+					</div>
+					<p class="text-gray-400 text-sm">Providing childcare for our small community</p>
+					<p class="text-brand-gold italic mt-2">"Play, Learn and Grow... Together!"</p>
+				</div>
+				<div>
+					<h3 class="font-semibold text-brand-green mb-4">Contact</h3>
+					<div class="space-y-2 text-gray-300">
+						<p>
+							<a href="tel:7152392004" class="hover:text-brand-green transition-colors">(715) 239-2004</a>
+						</p>
+						<p>
+							<a href="mailto:kidsfirstchildcare@yahoo.com" class="hover:text-brand-green transition-colors">kidsfirstchildcare@yahoo.com</a>
+						</p>
+						<p>
+							<a href="https://www.facebook.com/KidsFirstChildcareLLC" target="_blank" rel="noopener noreferrer" class="hover:text-brand-green transition-colors flex items-center gap-2">
+								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+									<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+								</svg>
+								Facebook
+							</a>
+						</p>
+					</div>
+				</div>
+				<div>
+					<h3 class="font-semibold text-brand-green mb-4">Location</h3>
+					<address class="text-gray-300 not-italic">
+						<a href="https://maps.google.com/?q=400+Woodside+Drive+Cornell+WI+54732" target="_blank" rel="noopener noreferrer" class="hover:text-brand-green transition-colors">
+							400 Woodside Drive<br/>
+							Cornell, WI 54732
+						</a>
+					</address>
+					<p class="text-gray-400 mt-4 text-sm">
+						<strong class="text-white">Hours:</strong> 5:30am - 6:00pm<br/>
+						Monday - Friday
+					</p>
+				</div>
+			</div>
+			<div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500 text-sm">
+				<p>&copy; { currentYear() } Kids First Childcare. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+}
+
+templ MobileMenuScript() {
+	<script>
+		document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+			const menu = document.getElementById('mobile-menu');
+			menu.classList.toggle('hidden');
+		});
+
+		// Close menu when clicking a link
+		document.querySelectorAll('#mobile-menu a').forEach(function(link) {
+			link.addEventListener('click', function() {
+				document.getElementById('mobile-menu').classList.add('hidden');
+			});
+		});
+	</script>
+}
+
+func currentYear() string {
+	return "2025"
+}

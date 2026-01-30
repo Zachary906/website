@@ -1,0 +1,38 @@
+# Binaries
+zach-sikora-daycare
+*.exe
+
+# Build artifacts
+tmp/
+*.log
+
+# Environment (never commit secrets)
+.envrc
+.env
+
+# SQLite database files
+data/*.db
+
+# Generated files (can be regenerated)
+*_templ.go
+internal/database/sqlc/
+
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tailwind output (generated)
+static/css/output.css
+
+# Python (old Flask files - can remove after conversion verified)
+__pycache__/
+*.pyc
+venv/
+.venv/
