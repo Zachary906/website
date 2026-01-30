@@ -6,17 +6,21 @@ BINARY_NAME=zach-sikora-daycare
 MIGRATIONS_DIR=internal/database/migrations
 
 dev:
-	@mkdir -p tmp
+	@mkdir -p tmp data
 	@if [ ! -f .envrc ] && [ -f .envrc.example ]; then \
 		echo "Creating .envrc from .envrc.example..."; \
 		cp .envrc.example .envrc; \
 		direnv allow; \
 	fi
+	@if [ ! -d node_modules ]; then \
+		echo "Installing npm dependencies..."; \
+		npm install; \
+	fi
 	@if [ -f tmp/air-combined.log ]; then \
 		mv tmp/air-combined.log tmp/air-combined-$$(date +%Y%m%d-%H%M%S).log; \
 	fi
 	@ls -t tmp/air-combined-*.log 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null || true
-	@air 2>&1 | tee tmp/air-combined.log
+	@bash -c 'source .envrc && air 2>&1 | tee tmp/air-combined.log'
 
 build: generate css
 	go build -o $(BINARY_NAME) ./cmd/server
